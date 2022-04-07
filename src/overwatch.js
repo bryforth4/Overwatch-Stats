@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import StatCard from "./components/StatCard";
 
 const OverwatchStats = () => {
 
-    const [ overwatchStats, setOverwatchStats ] = useState([]);
-    
-    console.log(overwatchStats);
+  const [ overwatchStats, setOverwatchStats ] = useState();
 
-    useEffect(() => {
-        fetch('https://ow-api.com/v1/stats/pc/us/sloppythread-1688/heroes/:heroes')
-            .then((promise) => {
-                let data = promise.json();
-                setOverwatchStats(data);
-            }); 
-    }, [ setOverwatchStats ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('https://ow-api.com/v1/stats/pc/us/sloppythread-1688/heroes/:heroes');
+      const json = await data.json();
+      setOverwatchStats(json)
+    }
+    fetchData()
+      .catch((error) => {
+        console.log(error)
+    })
+  }, [ setOverwatchStats ]);
 
-    return <>{overwatchStats[0].competitiveStats}</>
+  return <StatCard
+    stat={overwatchStats}
+  />
 }
 
 export default OverwatchStats;

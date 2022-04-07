@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header>OverwatchStats</header>
-      <OverwatchStats></OverwatchStats>
+      <OverwatchStats/>
     </div>
   );
 }
